@@ -20,6 +20,8 @@ index:
   enum_and: and
   articles: Writing
   projects: Projects
+  categories: Categories
+  pinned: Pinned
   topics: Topics
   most_recent: Most recent
 
