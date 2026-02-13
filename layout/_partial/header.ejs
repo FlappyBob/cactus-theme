@@ -29,5 +29,36 @@
    --><% } %>
     </ul>
   </div>
-  
+  <button class="lang-toggle notranslate" id="lang-toggle" onclick="toggleLanguage()" title="Switch language">
+    EN
+  </button>
+  <script type="text/javascript">
+  (function() {
+    var lang = navigator.language || navigator.userLanguage || 'zh-CN';
+    var isChinese = lang.indexOf('zh') === 0;
+    var btn = document.getElementById('lang-toggle');
+    // If already translated (cookie set), show "中文" to switch back
+    var cookies = document.cookie;
+    if (cookies.indexOf('googtrans=') !== -1 && cookies.indexOf('googtrans=/zh-CN/zh') === -1) {
+      btn.textContent = '中文';
+    } else {
+      btn.textContent = 'EN';
+    }
+  })();
+
+  function toggleLanguage() {
+    var btn = document.getElementById('lang-toggle');
+    if (btn.textContent.trim() === 'EN') {
+      // Switch to English
+      document.cookie = 'googtrans=/zh-CN/en;path=/';
+      document.cookie = 'googtrans=/zh-CN/en;path=/;domain=' + location.hostname;
+      location.reload();
+    } else {
+      // Switch back to Chinese (remove translation)
+      document.cookie = 'googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'googtrans=;path=/;domain=' + location.hostname + ';expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      location.reload();
+    }
+  }
+  </script>
 </header>

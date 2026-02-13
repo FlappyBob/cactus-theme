@@ -243,3 +243,34 @@ code
 
 #header-post #actions
   direction: ltr !important
+
+/* Hide Google Translate toolbar and artifacts */
+.goog-te-banner-frame
+  display: none !important
+
+.skiptranslate
+  display: none !important
+
+body
+  top: 0 !important
+
+.goog-te-gadget
+  display: none !important
+
+/* Language toggle button */
+.lang-toggle
+  cursor: pointer
+  background: none
+  border: 1px solid $color-text
+  color: $color-text
+  padding: 2px 8px
+  border-radius: 3px
+  font-size: 12px
+  font-family: $font-family-body
+  margin-left: 8px
+  transition: all 0.2s ease
+  vertical-align: middle
+
+  &:hover
+    background: $color-text
+    color: $color-background

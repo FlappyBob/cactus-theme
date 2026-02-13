@@ -17,8 +17,8 @@ nav:
   home: /
   about: /about/
   articles: /archives/
-  Links: /links/
-  Academic Page: /academic
+  links: /links/
+  academic: /academic
 
 
 # Links to your social media accounts.
@@ -34,6 +34,9 @@ social_links:
   -
     icon: X
     link: https://x.com/FlappyHimself
+  -
+    icon: zhihu
+    link: https://www.zhihu.com/people/flappyboba
   -
     icon: mail
     link: mailto:sy3535@nyu.com

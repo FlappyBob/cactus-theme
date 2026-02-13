@@ -1,3 +1,124 @@
+/* Homepage terminal */
+.home-terminal
+  background: #0d0011
+  border: 1px solid $color-accent-1
+  border-radius: 8px
+  overflow: hidden
+  box-shadow: 0 0 30px rgba(255, 19, 101, 0.15)
+  margin-bottom: 2rem
+  font-family: 'Courier New', 'Fira Code', monospace
+
+.home-terminal-header
+  background: #1a0a1e
+  padding: 10px 16px
+  display: flex
+  align-items: center
+  gap: 8px
+  border-bottom: 1px solid #2a1a2e
+
+.home-terminal-dot
+  width: 12px
+  height: 12px
+  border-radius: 50%
+  &.red
+    background: #ff5f57
+  &.yellow
+    background: #ffbd2e
+  &.green
+    background: #28c840
+
+.home-terminal-title
+  color: #888
+  font-size: 13px
+  margin-left: 8px
+
+.home-terminal-body
+  padding: 20px
+  color: $color-text
+  font-size: 14px
+  line-height: 1.8
+
+.home-terminal-line
+  white-space: pre-wrap
+  word-break: break-word
+  margin-bottom: 2px
+
+.home-ascii
+  color: $color-accent-1
+  font-size: 11px
+  line-height: 1.2
+  letter-spacing: 0
+
+  @media (max-width: 480px)
+    font-size: 8px
+
+.home-prompt
+  color: $color-accent-1
+  font-weight: bold
+
+.home-output-accent
+  color: $color-accent-1
+  font-weight: bold
+
+.home-output-dim
+  color: #999
+  font-size: 13px
+
+.home-nav-links
+  display: flex
+  flex-wrap: wrap
+  gap: 8px
+
+.home-nav-item
+  display: inline-block
+  color: #28c840
+  background: none
+  padding: 4px 14px
+  border: 1px solid #28c840
+  border-radius: 4px
+  font-family: 'Courier New', monospace
+  font-size: 14px
+  text-decoration: none
+  transition: all 0.2s
+  background-image: none !important
+
+  &:hover
+    background: #28c840 !important
+    background-image: none !important
+    color: #0d0011
+
+  .home-nav-icon
+    color: $color-accent-1
+
+.home-social-links
+  display: flex
+  flex-wrap: wrap
+  gap: 10px
+
+.home-social-btn
+  display: inline-flex
+  align-items: center
+  gap: 6px
+  color: $color-text
+  background: #1a0a1e
+  border: 1px solid $color-accent-1
+  padding: 6px 16px
+  border-radius: 4px
+  font-family: 'Courier New', monospace
+  font-size: 13px
+  text-decoration: none
+  transition: all 0.2s
+  background-image: none !important
+
+  &:hover
+    background: $color-accent-1 !important
+    background-image: none !important
+    color: #0d0011
+
+  i
+    font-size: 16px
+
+/* Post list */
 .post-list
   padding: 0
 

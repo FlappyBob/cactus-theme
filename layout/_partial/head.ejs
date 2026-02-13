@@ -65,6 +65,30 @@
     <% if (theme.rss) { %>
       <link rel="alternate" href="<%= url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml" />
     <% } %>
+	<!-- auto-translate based on browser language -->
+	<script type="text/javascript">
+	(function() {
+	  var lang = navigator.language || navigator.userLanguage || 'zh-CN';
+	  var isChinese = lang.indexOf('zh') === 0;
+	  if (!isChinese) {
+	    // Map browser language to Google Translate language code
+	    var targetLang = lang.split('-')[0]; // e.g. 'en-US' -> 'en'
+	    // Set googtrans cookie to auto-trigger translation
+	    document.cookie = 'googtrans=/zh-CN/' + targetLang + ';path=/';
+	    document.cookie = 'googtrans=/zh-CN/' + targetLang + ';path=/;domain=' + location.hostname;
+	  }
+	})();
+	</script>
+	<script type="text/javascript">
+	function googleTranslateElementInit() {
+	  new google.translate.TranslateElement({
+	    pageLanguage: 'zh-CN',
+	    autoDisplay: false,
+	    layout: google.translate.TranslateElement.InlineLayout.NONE
+	  }, 'google_translate_element');
+	}
+	</script>
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 	<!-- mathjax -->
 	<% if (theme.mathjax.enabled) {%>
 		<script type="text/x-mathjax-config">
