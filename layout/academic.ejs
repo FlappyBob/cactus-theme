@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title><%= site.data.academic.name %> — Academic</title>
-  <meta name="author" content="<%= site.data.academic.name %>">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="/academic/stylesheet.css">
-</head>
-<body>
 <%
   var ac = site.data.academic;
   var papers = ac.papers || [];
@@ -15,12 +5,33 @@
   var links = ac.links || [];
   var bio = ac.bio || [];
 
-  // Simple markdown-link parser: [text](url) → <a href="url">text</a>
   function mdLinks(str) {
     if (!str) return '';
     return str.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   }
 %>
+
+<link rel="stylesheet" type="text/css" href="/academic/stylesheet.css">
+
+<!-- Hard-reset the blog theme for this page -->
+<style>
+  html, body {
+    background: #fff !important;
+    color: #333 !important;
+    border-top: none !important;
+  }
+  #header, #footer, .article-title { display: none !important; }
+  .content { background: #fff !important; padding: 0 !important; }
+  /* Kill theme heading prefix and color overrides */
+  h2 { color: #333 !important; }
+  h2::before { content: none !important; }
+  a { color: #1772d0 !important; background-image: none !important; }
+  a:hover { color: #f09228 !important; }
+  .name { color: #333 !important; }
+  span.highlight { background-color: #ffffd0; color: #333 !important; }
+  /* Kill any theme text-transform or letter-spacing on headings */
+  h2 { text-transform: none !important; letter-spacing: normal !important; font-size: 22px !important; font-weight: normal !important; }
+</style>
 
 <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
   <tr style="padding:0px">
@@ -30,9 +41,9 @@
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
         <tr style="padding:0px">
           <td style="padding:2.5%;width:63%;vertical-align:middle">
-            <p class="name" style="text-align:center;"><%= ac.name %></p>
+            <p class="name" style="text-align:center;color:#333;"><%= ac.name %></p>
             <% bio.forEach(function(para) { %>
-              <p><%- mdLinks(para) %></p>
+              <p style="color:#333;"><%- mdLinks(para) %></p>
             <% }); %>
             <p style="text-align:center">
               <% links.forEach(function(link, i) { %>
@@ -53,7 +64,7 @@
         <tr>
           <td style="padding:16px;width:100%;vertical-align:middle">
             <h2>Research</h2>
-            <p><%- mdLinks(ac.research_intro) %> <% if (papers.length > 0) { %>Some papers are <span class="highlight">highlighted</span>.<% } %></p>
+            <p style="color:#333;"><%- mdLinks(ac.research_intro) %><% if (papers.length > 0) { %> Some papers are <span class="highlight">highlighted</span>.<% } %></p>
           </td>
         </tr>
       </tbody></table>
@@ -106,7 +117,7 @@
             <% } %>
             <% if (paper.description) { %>
             <p></p>
-            <p><%- mdLinks(paper.description) %></p>
+            <p style="color:#333;"><%- mdLinks(paper.description) %></p>
             <% } %>
           </td>
         </tr>
@@ -137,6 +148,3 @@
     </td>
   </tr>
 </tbody></table>
-
-</body>
-</html>
