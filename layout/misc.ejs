@@ -1,0 +1,51 @@
+<link rel="stylesheet" type="text/css" href="/academic/stylesheet.css">
+
+<style>
+  html, body {
+    background: #fff !important;
+    color: #333 !important;
+    border-top: none !important;
+  }
+  #header, #footer, .article-title { display: none !important; }
+  .content { background: #fff !important; padding: 0 !important; }
+  h2, h3 {
+    color: #333 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-weight: normal !important;
+  }
+  h2::before, h3::before { content: none !important; }
+  a { color: #1772d0 !important; background-image: none !important; }
+  a:hover { color: #f09228 !important; }
+  .misc-shell {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: separate;
+  }
+  .misc-shell td {
+    padding: 16px;
+    vertical-align: top;
+  }
+  .misc-content {
+    color: #333;
+    line-height: 1.75;
+  }
+  .misc-content ul {
+    margin: 8px 0 16px 0;
+    padding-left: 20px;
+  }
+  .misc-content li {
+    margin-bottom: 6px;
+  }
+</style>
+
+<table class="misc-shell"><tbody>
+  <tr>
+    <td>
+      <div class="misc-content">
+        <%- page.content %>
+      </div>
+    </td>
+  </tr>
+</tbody></table>
