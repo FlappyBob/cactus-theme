@@ -59,37 +59,9 @@
         </tr>
       </tbody></table>
 
-      <!-- ── Research intro ──────────────────────────────────── -->
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-          <td style="padding:16px;width:100%;vertical-align:middle">
-            <h2>Research</h2>
-            <% var ri = ac.research_intro; %>
-            <% if (ri && typeof ri === 'object' && ri.bullets) { %>
-              <% if (ri.intro) { %><p style="color:#333;"><%- mdLinks(ri.intro) %></p><% } %>
-              <ul style="margin:4px 0 8px 0;padding-left:20px;color:#333;">
-                <% ri.bullets.forEach(function(b){ %>
-                  <li style="margin-bottom:4px;"><%- mdLinks(b) %></li>
-                <% }); %>
-              </ul>
-              <% if (ri.outro) { %><p style="color:#333;"><%- mdLinks(ri.outro) %><% if (papers.length > 0) { %> Some papers are <span class="highlight">highlighted</span>.<% } %></p><% } %>
-            <% } else { %>
-              <p style="color:#333;"><%- mdLinks(ri) %><% if (papers.length > 0) { %> Some papers are <span class="highlight">highlighted</span>.<% } %></p>
-            <% } %>
-          </td>
-        </tr>
-      </tbody></table>
-
       <!-- ── Papers ──────────────────────────────────────────── -->
       <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 
-        <% if (papers.length === 0) { %>
-        <tr>
-          <td style="padding:16px;width:100%;vertical-align:middle;color:#bbb;font-style:italic;font-size:13px;">
-            Publications will appear here.
-          </td>
-        </tr>
-        <% } %>
 
         <% papers.forEach(function(paper) { %>
         <tr onmouseout="<%= paper.id %>_stop()" onmouseover="<%= paper.id %>_start()"<% if (paper.highlight) { %> bgcolor="#ffffd0"<% } %>>
@@ -136,25 +108,6 @@
 
       </tbody></table>
 
-      <!-- ── Education ───────────────────────────────────────── -->
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr>
-          <td style="padding:16px;width:100%;vertical-align:middle">
-            <h2>Education</h2>
-          </td>
-        </tr>
-      </tbody></table>
-      <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <% education.forEach(function(edu) { %>
-        <tr>
-          <td style="padding:8px 16px;width:100%;vertical-align:middle">
-            <span class="papertitle"><%= edu.school %></span><br>
-            <span style="color:#555;"><%= edu.degree %><% if (edu.years) { %> &nbsp;·&nbsp; <%= edu.years %><% } %></span>
-            <% if (edu.note) { %><br><span style="color:#888;font-size:13px;"><%= edu.note %></span><% } %>
-          </td>
-        </tr>
-        <% }); %>
-      </tbody></table>
 
     </td>
   </tr>
