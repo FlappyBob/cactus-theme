@@ -13,6 +13,82 @@ if (!!$.prototype.justifiedGallery) {
 $(document).ready(function() {
 
   /**
+   * Apple-like page transitions for normal link navigation.
+   */
+  (function() {
+    var transitionKey = "applePageTransition";
+    var filePattern = /\.(?:avif|bmp|gif|jpe?g|png|svg|webp|ico|pdf|zip|rar|7z|tar|gz|mp3|mp4|mov|webm|docx?|pptx?|xlsx?)$/i;
+
+    function prefersReducedMotion() {
+      return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    function ensureVeil() {
+      var veil = document.querySelector(".page-transition-veiling");
+      if (!veil) {
+        veil = document.createElement("div");
+        veil.className = "page-transition-veiling";
+        veil.setAttribute("aria-hidden", "true");
+        document.body.appendChild(veil);
+      }
+      return veil;
+    }
+
+    function isSameDocumentHash(url) {
+      return url.origin === window.location.origin &&
+        url.pathname === window.location.pathname &&
+        url.search === window.location.search &&
+        url.hash &&
+        url.hash !== window.location.hash;
+    }
+
+    function shouldTransition(link, event) {
+      var rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.charAt(0) === "#" || link.hasAttribute("download") || link.dataset.noTransition === "true") {
+        return false;
+      }
+
+      var url = new URL(link.href, window.location.href);
+      var isPlainClick = !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0;
+      var protocol = url.protocol.toLowerCase();
+
+      if (!isPlainClick || link.target || prefersReducedMotion()) return false;
+      if (protocol !== "http:" && protocol !== "https:") return false;
+      if (isSameDocumentHash(url)) return false;
+      if (filePattern.test(url.pathname)) return false;
+
+      return true;
+    }
+
+    if (sessionStorage.getItem(transitionKey) === "1") {
+      sessionStorage.removeItem(transitionKey);
+      if (!prefersReducedMotion()) {
+        document.body.classList.add("apple-transition-in");
+      }
+    }
+
+    $(document).on("click", "a", function(event) {
+      var link = this;
+      var url = new URL(link.href, window.location.href);
+
+      if (!shouldTransition(link, event)) {
+        return;
+      }
+
+      event.preventDefault();
+      ensureVeil();
+      if (url.origin === window.location.origin) {
+        sessionStorage.setItem(transitionKey, "1");
+      }
+      document.body.classList.add("apple-transition-out");
+
+      window.setTimeout(function() {
+        window.location.href = link.href;
+      }, 360);
+    });
+  })();
+
+  /**
    * Shows the responsive navigation menu on mobile.
    */
   $("#header > #nav > ul > .icon").click(function() {

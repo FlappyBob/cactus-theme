@@ -1,114 +1,164 @@
 <%
-  var ac = site.data.academic;
+  var ac = site.data.academic || {};
   var papers = ac.papers || [];
-  var education = ac.education || [];
   var links = ac.links || [];
   var bio = ac.bio || [];
+  var displayName = ac.name || config.author;
+  var showResearch = ac.show_research === true;
+  var featured = papers.find(function(paper) { return paper.highlight; });
+  var regularPapers = papers.filter(function(paper) { return !paper.highlight; });
 
   function mdLinks(str) {
     if (!str) return '';
     return str.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   }
+
+  function isBlogLink(url) {
+    return /^\/blog\/?$/.test(url || '') || /^https?:\/\/[^\/]+\/blog\/?$/.test(url || '');
+  }
+
+  function renderAuthors(authors) {
+    if (!authors || !authors.length) return '';
+    return authors.map(function(author) {
+      if (author.me) return '<strong>' + author.name + '</strong>';
+      if (author.url) return '<a href="' + author.url + '">' + author.name + '</a>';
+      return author.name;
+    }).join(', ');
+  }
+
+  function renderPaperLinks(paper) {
+    var paperLinks = paper.links || [];
+    if (!paperLinks.length && paper.url) {
+      paperLinks = [{ text: 'paper', url: paper.url }];
+    }
+    return paperLinks;
+  }
 %>
 
 <link rel="stylesheet" type="text/css" href="/academic/stylesheet.css">
 
-<!-- Hard-reset the blog theme for this page -->
-<style>
-  html, body {
-    background: #fff !important;
-    color: #333 !important;
-    border-top: none !important;
-  }
-  #header, #footer, .article-title { display: none !important; }
-  .content { background: #fff !important; padding: 0 !important; }
-  /* Kill theme heading prefix and color overrides */
-  h2 { color: #333 !important; }
-  h2::before { content: none !important; }
-  a { color: #1772d0 !important; background-image: none !important; }
-  a:hover { color: #f09228 !important; }
-  .name { color: #333 !important; }
-  span.highlight { background-color: #ffffd0; color: #333 !important; }
-  /* Kill any theme text-transform or letter-spacing on headings */
-  h2 { text-transform: none !important; letter-spacing: normal !important; font-size: 22px !important; font-weight: normal !important; }
-</style>
+<section class="academic-page" aria-label="Academic homepage">
+  <header class="academic-hero">
+    <div class="academic-hero-copy">
+      <h1>
+        <span class="academic-name-en"><%= displayName %></span>
+        <% if (ac.name_zh) { %>
+          <span class="academic-name-zh"><%= ac.name_zh %></span>
+        <% } %>
+      </h1>
+      <p class="academic-tagline"><%= ac.tagline || 'Long-horizon video generation, world models, and visual intelligence.' %></p>
 
-<table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-  <tr style="padding:0px">
-    <td style="padding:0px">
+      <nav class="academic-links" aria-label="Academic links">
+        <% links.forEach(function(link) { %>
+          <a href="<%= link.url %>"<% if (isBlogLink(link.url)) { %> class="academic-blog-transition" data-page-transition="academic-to-blog"<% } %>><%= link.text %></a>
+        <% }); %>
+      </nav>
+    </div>
 
-      <!-- ── Profile ─────────────────────────────────────────── -->
-      <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-        <tr style="padding:0px">
-          <td style="padding:2.5%;width:63%;vertical-align:middle">
-            <p class="name" style="text-align:center;color:#333;"><%= ac.name %></p>
-            <% bio.forEach(function(para) { %>
-              <p style="color:#333;"><%- mdLinks(para) %></p>
-            <% }); %>
-            <p style="text-align:center">
-              <% links.forEach(function(link, i) { %>
-                <a href="<%= link.url %>"><%= link.text %></a><% if (i < links.length - 1) { %> &nbsp;/&nbsp;<% } %>
-              <% }); %>
-            </p>
-          </td>
-          <td style="padding:2.5%;width:37%;max-width:37%">
-            <a href="<%= ac.avatar %>">
-              <img style="width:100%;max-width:100%;object-fit:cover;border-radius:50%;" alt="<%= ac.name %>" src="<%= ac.avatar %>">
-            </a>
-          </td>
-        </tr>
-      </tbody></table>
+    <a class="academic-avatar-link" href="<%= ac.avatar %>" aria-label="<%= displayName %> portrait">
+      <img class="academic-avatar" src="<%= ac.avatar %>" alt="<%= displayName %>">
+    </a>
+  </header>
 
-      <!-- ── Papers ──────────────────────────────────────────── -->
-      <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+  <% if (bio.length) { %>
+    <section class="academic-section academic-bio" aria-label="Biography">
+      <% bio.forEach(function(para) { %>
+        <p><%- mdLinks(para) %></p>
+      <% }); %>
+    </section>
+  <% } %>
 
+  <% if (showResearch) { %>
+    <main class="academic-main">
+      <section class="academic-section research-section" aria-labelledby="research-title">
+        <div class="academic-section-header">
+          <p class="academic-kicker">Selected Work</p>
+          <h2 id="research-title">Research</h2>
+        </div>
 
-        <% papers.forEach(function(paper) { %>
-        <tr onmouseout="<%= paper.id %>_stop()" onmouseover="<%= paper.id %>_start()"<% if (paper.highlight) { %> bgcolor="#ffffd0"<% } %>>
-          <td style="padding:16px;width:20%;vertical-align:middle">
-            <div class="one">
-              <% if (paper.image_hover) { %>
-              <div class="two" id="<%= paper.id %>_image">
-                <img src="<%= paper.image_hover %>" width="160">
-              </div>
+        <% if (featured) { %>
+          <article class="featured-paper<% if (!(featured.image || featured.image_hover)) { %> featured-paper-no-media<% } %>">
+            <% if (featured.image || featured.image_hover) { %>
+              <a class="featured-paper-media" href="<%= featured.url || '#' %>">
+                <img src="<%= featured.image_hover || featured.image %>" alt="<%= featured.title %> teaser">
+              </a>
+            <% } %>
+            <div class="featured-paper-copy">
+              <p class="academic-kicker">Featured Research</p>
+              <% if (featured.url) { %>
+                <a class="paper-title-link" href="<%= featured.url %>"><h3><%= featured.title %></h3></a>
               <% } else { %>
-              <div class="two" id="<%= paper.id %>_image"></div>
+                <h3><%= featured.title %></h3>
               <% } %>
-              <% if (paper.image) { %>
-              <img src="<%= paper.image %>" width="160">
+              <% if (featured.authors && featured.authors.length) { %>
+                <p class="paper-authors"><%- renderAuthors(featured.authors) %></p>
+              <% } %>
+              <% if (featured.venue || featured.year || featured.awards) { %>
+                <p class="paper-meta"><% if (featured.venue) { %><em><%= featured.venue %></em><% } %><% if (featured.year) { %>, <%= featured.year %><% } %><% if (featured.awards) { %> <strong><%= featured.awards %></strong><% } %></p>
+              <% } %>
+              <% if (featured.description) { %>
+                <p class="paper-description"><%- mdLinks(featured.description) %></p>
+              <% } %>
+              <% var featuredLinks = renderPaperLinks(featured); %>
+              <% if (featuredLinks.length) { %>
+                <div class="paper-links">
+                  <% featuredLinks.forEach(function(link) { %>
+                    <a href="<%= link.url %>"><%= link.text %></a>
+                  <% }); %>
+                </div>
               <% } %>
             </div>
-            <script type="text/javascript">
-              function <%= paper.id %>_start() { document.getElementById('<%= paper.id %>_image').style.opacity = "1"; }
-              function <%= paper.id %>_stop()  { document.getElementById('<%= paper.id %>_image').style.opacity = "0"; }
-              <%= paper.id %>_stop()
-            </script>
-          </td>
-          <td style="padding:20px;width:75%;vertical-align:middle">
-            <% if (paper.url) { %><a href="<%= paper.url %>"><% } %>
-              <span class="papertitle"><%= paper.title %></span>
-            <% if (paper.url) { %></a><% } %>
-            <br>
-            <% (paper.authors || []).forEach(function(author, i) { %>
-              <% if (author.me) { %><strong><%= author.name %></strong><% } else if (author.url) { %><a href="<%= author.url %>"><%= author.name %></a><% } else { %><%= author.name %><% } %><% if (i < paper.authors.length - 1) { %>,&nbsp;<% } %>
+          </article>
+        <% } %>
+
+        <% if (regularPapers.length) { %>
+          <div class="paper-list">
+            <% regularPapers.forEach(function(paper) { %>
+              <article class="paper-card">
+                <% if (paper.image || paper.image_hover) { %>
+                  <a class="paper-media" href="<%= paper.url || '#' %>">
+                    <img src="<%= paper.image_hover || paper.image %>" alt="<%= paper.title %> teaser">
+                  </a>
+                <% } else { %>
+                  <div class="paper-media paper-media-placeholder" aria-hidden="true"></div>
+                <% } %>
+                <div class="paper-copy">
+                  <% if (paper.url) { %>
+                    <a class="paper-title-link" href="<%= paper.url %>"><h3><%= paper.title %></h3></a>
+                  <% } else { %>
+                    <h3><%= paper.title %></h3>
+                  <% } %>
+                  <% if (paper.authors && paper.authors.length) { %>
+                    <p class="paper-authors"><%- renderAuthors(paper.authors) %></p>
+                  <% } %>
+                  <% if (paper.venue || paper.year || paper.awards) { %>
+                    <p class="paper-meta"><% if (paper.venue) { %><em><%= paper.venue %></em><% } %><% if (paper.year) { %>, <%= paper.year %><% } %><% if (paper.awards) { %> <strong><%= paper.awards %></strong><% } %></p>
+                  <% } %>
+                  <% if (paper.description) { %>
+                    <p class="paper-description"><%- mdLinks(paper.description) %></p>
+                  <% } %>
+                  <% var paperLinks = renderPaperLinks(paper); %>
+                  <% if (paperLinks.length) { %>
+                    <div class="paper-links">
+                      <% paperLinks.forEach(function(link) { %>
+                        <a href="<%= link.url %>"><%= link.text %></a>
+                      <% }); %>
+                    </div>
+                  <% } %>
+                </div>
+              </article>
             <% }); %>
-            <br>
-            <em><%= paper.venue %></em>, <%= paper.year %><% if (paper.awards) { %> &nbsp;<strong><%= paper.awards %></strong><% } %>
-            <% if (paper.links && paper.links.length > 0) { %>
-            <br>
-            <% paper.links.forEach(function(link, i) { %><a href="<%= link.url %>"><%= link.text %></a><% if (i < paper.links.length - 1) { %> /&nbsp;<% } %><% }); %>
-            <% } %>
-            <% if (paper.description) { %>
-            <p></p>
-            <p style="color:#333;"><%- mdLinks(paper.description) %></p>
-            <% } %>
-          </td>
-        </tr>
-        <% }); %>
+          </div>
+        <% } else if (!featured) { %>
+          <div class="empty-research">
+            <p>Publications will appear here.</p>
+          </div>
+        <% } %>
+      </section>
+    </main>
+  <% } %>
 
-      </tbody></table>
-
-
-    </td>
-  </tr>
-</tbody></table>
+  <footer class="academic-footer">
+    <span>&copy; <%= new Date().getFullYear() %> <%= displayName %>.</span>
+  </footer>
+</section>
