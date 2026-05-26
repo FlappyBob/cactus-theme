@@ -1,8 +1,8 @@
 <%
   var ac = site.data.academic || {};
-  var papers = ac.papers || [];
-  var links = ac.links || [];
-  var bio = ac.bio || [];
+  var papers = Array.isArray(ac.papers) ? ac.papers : [];
+  var links = Array.isArray(ac.links) ? ac.links : [];
+  var bio = Array.isArray(ac.bio) ? ac.bio : [];
   var displayName = ac.name || config.author;
   var showResearch = ac.show_research === true;
   var featured = papers.find(function(paper) { return paper.highlight; });
