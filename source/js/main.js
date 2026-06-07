@@ -67,6 +67,17 @@ $(document).ready(function() {
       }
     }
 
+    // When browser restores page from bfcache (back/forward), strip any
+    // leftover transition state so the page renders immediately.
+    window.addEventListener("pageshow", function(e) {
+      if (e.persisted) {
+        document.body.classList.remove("apple-transition-out", "apple-transition-in");
+        var veil = document.querySelector(".page-transition-veiling");
+        if (veil) veil.remove();
+        sessionStorage.removeItem(transitionKey);
+      }
+    });
+
     $(document).on("click", "a", function(event) {
       var link = this;
       var url = new URL(link.href, window.location.href);
