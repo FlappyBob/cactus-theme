@@ -16,7 +16,7 @@ direction: ltr
 nav:
   home: /blog/
   articles: /archives/
-  academic: /
+  about: /
 
 
 # Links to your social media accounts.
