@@ -58,15 +58,15 @@
     <a class="academic-avatar-link" href="<%= ac.avatar %>" aria-label="<%= displayName %> portrait">
       <img class="academic-avatar" src="<%= ac.avatar %>" alt="<%= displayName %>">
     </a>
-  </header>
 
-  <% if (bio.length) { %>
-    <section class="academic-section academic-bio" aria-label="Biography">
-      <% bio.forEach(function(para) { %>
-        <p><%- mdLinks(para) %></p>
-      <% }); %>
-    </section>
-  <% } %>
+    <% if (bio.length) { %>
+      <section class="academic-bio" aria-label="Biography">
+        <% bio.forEach(function(para) { %>
+          <p><%- mdLinks(para) %></p>
+        <% }); %>
+      </section>
+    <% } %>
+  </header>
 
   <% if (showResearch) { %>
     <main class="academic-main">
