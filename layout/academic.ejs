@@ -54,7 +54,7 @@
 <% if (socialLinks.length) { %>
         <nav class="academic-profile-social" aria-label="Contact and social profiles">
 <% socialLinks.forEach(function(social) { %>
-            <a class="academic-social-link" href="<%= social.url %>" aria-label="<%= social.label %>"<% if (/^https?:/.test(social.url)) { %> target="_blank" rel="noopener noreferrer"<% } %>>
+            <a class="academic-social-link<%= social.icon === 'blog' ? ' academic-blog-link' : '' %>" href="<%= social.url %>" aria-label="<%= social.label %>"<% if (/^https?:/.test(social.url)) { %> target="_blank" rel="noopener noreferrer"<% } %>>
               <svg class="academic-social-icon" viewBox="0 0 24 24" aria-hidden="true">
 <% if (social.icon === 'email') { %>
                   <path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z" />
@@ -74,6 +74,14 @@
                   <rect x="14" y="14" width="7" height="7" rx="1" fill="currentColor" />
 <% } %>
               </svg>
+<% if (social.icon === 'blog') { %>
+              <svg class="academic-blog-note" viewBox="0 0 168 72" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M109 34C108 24 116 17 129 13C145 8 153 3 147 2C140 1 136 8 140 12C145 16 152 9 155 3M146 3L156 2L155 12" />
+                <g transform="translate(4 40) rotate(-3 70 12)">
+                  <path d="M3 0L1 23M2 14C13 5 19 11 15 18C12 23 6 23 2 20M38 12C26 6 23 20 29 22C34 24 38 15 38 12L37 23M46 11L44 23M45 17C49 11 53 10 57 12M71 2C62 10 62 23 69 29M80 0L78 23M79 14C90 6 94 12 90 19C87 23 82 23 79 20M101 0L98 21L103 23M116 11C106 9 105 24 113 24C122 24 125 10 116 11M140 12C129 6 124 19 131 22C136 25 141 16 141 11L139 30C138 37 130 36 128 32M151 2C160 9 159 21 152 29" />
+                </g>
+              </svg>
+<% } %>
             </a>
 <% }); %>
         </nav>
