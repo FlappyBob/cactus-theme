@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="<%- url_for('/bar/portal.css') %>">
+<link rel="stylesheet" href="<%- url_for('/bar/original-interface.css') %>">
+<link rel="stylesheet" href="<%- url_for('/bar/story.css') %>">
+<link rel="stylesheet" href="<%- url_for('/lib/font-awesome/css/all.min.css') %>">
+<main class="bar-game" id="bar-game" aria-label="Jill's Bar">
+  <header class="bar-top"><a href="/blog/" data-no-transition="true"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Blog</a><span>FLAPPY / AFTER HOURS</span><button id="bar-settings" aria-label="设置" title="设置"><i class="fa-solid fa-gear" aria-hidden="true"></i></button></header>
+  <div class="bar-machine">
+    <section class="bar-room" aria-label="机器人店主坐在吧台前">
+      <img class="bar-room-fallback" src="/bar/assets/room-original.png" alt="深夜的像素酒吧" width="660" height="482">
+      <div id="bar-scene" aria-hidden="true"></div>
+      <div class="bar-customer-portrait"><img src="/bar/assets/robot-owner-concept-v1.png" alt="穿米白 T 恤的机器人店主"><canvas id="bar-customer" width="752" height="752" aria-hidden="true"></canvas></div>
+      <div id="bar-loading" role="status">OPENING <progress max="1" value="0"></progress></div>
+    </section>
+    <section class="bar-console" aria-label="调酒台">
+      <div class="bar-brand"><img src="/bar/assets/original-sign.png" alt="Cyberpunk Bartender Action VA-11 HALL-A" width="376" height="126"><h1>Jill's Bar</h1></div>
+      <div class="bar-slots" aria-label="调酒槽位"><button data-slot="0" aria-pressed="true">Slot 1 <span></span></button><button data-slot="1" aria-pressed="false">Slot 2 <span></span></button></div>
+      <div class="bar-ingredients" id="bar-ingredients"></div>
+      <span class="bar-sr-only" id="bar-add-status" role="status"></span>
+      <div class="bar-workbench">
+        <div class="bar-treatment"><button id="bar-ice" aria-pressed="false"><i class="fa-regular fa-snowflake" aria-hidden="true"></i> Ice</button><button id="bar-age" aria-pressed="false"><i class="fa-regular fa-clock" aria-hidden="true"></i> Age</button></div>
+        <div class="bar-mixer"><div class="bar-shaker" aria-hidden="true"><i></i><b></b></div><output id="bar-mix-state">EMPTY</output><div class="bar-timer"><span></span></div><output id="bar-capacity">0 / 20</output></div>
+        <div class="bar-mix-actions"><button id="bar-reset" title="清空当前槽位" aria-label="清空当前槽位"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i></button><button id="bar-mix">Mix</button></div>
+      </div>
+      <div class="bar-result"><output id="bar-result">等待调制</output><button id="bar-serve" disabled>Serve <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button></div>
+    </section>
+    <section class="bar-dialogue" aria-label="吧台对话">
+      <div class="bar-jill-portrait"><canvas id="bar-jill" width="616" height="644" role="img" aria-label="Jill，玩家扮演的调酒师"></canvas></div>
+      <div class="bar-dialogue-heading"><strong id="bar-speaker">场景</strong><span id="bar-order-counter">AFTER HOURS / 01</span></div>
+      <p id="bar-speech" aria-hidden="true">门外的脚步声停了下来。</p><p id="bar-speech-accessible" class="bar-sr-only" aria-live="polite"></p>
+      <button id="bar-finish-text" title="显示全文" aria-label="显示全文"><i class="fa-solid fa-forward-step" aria-hidden="true"></i></button>
+      <div id="bar-request" hidden></div><div id="bar-story-actions"></div><p id="bar-story-notice" role="status"></p>
+    </section>
+    <nav class="bar-menu" aria-label="酒吧菜单"><div class="bar-modes"><button data-mode="story" aria-pressed="true">这一晚</button><button data-mode="free" aria-pressed="false">自由调酒</button></div><button id="bar-book"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Drinktionary <span id="bar-discovered">0 / 25</span></button><button id="bar-notes"><i class="fa-regular fa-note-sticky" aria-hidden="true"></i> 今晚的便笺 <span id="bar-notes-count"></span></button><div class="bar-exit-row"><a href="/blog/" data-no-transition="true"><i class="fa-solid fa-door-open" aria-hidden="true"></i> 离开酒吧</a><button id="bar-restart-story" title="重新开始这一晚" aria-label="重新开始这一晚"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i></button></div></nav>
+  </div>
+  <p class="bar-credits">Fan-made · Jill / VA-11 HALL-A © Sukeban Games · <a href="https://va11halla.fandom.com/wiki/Drinktionary" target="_blank" rel="noopener">Drinktionary</a><span class="bar-adaptation">故事取材于公开博客；酒吧情境与对白为虚构改编。</span></p>
+  <noscript><p>调酒需要 JavaScript。<a href="/blog/">返回 Blog</a></p></noscript>
+</main>
+<dialog id="bar-notes-dialog" class="bar-modal bar-story-notes" aria-labelledby="bar-notes-title"><header><h2 id="bar-notes-title">今晚聊过的事</h2><button data-close aria-label="关闭便笺"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header><div id="bar-notes-list"></div><details><summary>对话记录</summary><div id="bar-story-log"></div></details></dialog>
+<dialog id="bar-restart-dialog" class="bar-modal bar-settings-modal" aria-labelledby="bar-restart-title"><header><h2 id="bar-restart-title">重新开始这一晚？</h2><button data-close aria-label="取消"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header><p>本章的对话进度和便笺将被重置，已发现的酒谱会保留。</p><button id="bar-restart-confirm">重新开始</button></dialog>
+<dialog id="bar-book-dialog" class="bar-modal" aria-labelledby="bar-book-title"><header><h2 id="bar-book-title">DRINKTIONARY</h2><button data-close aria-label="关闭酒谱"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header><div class="bar-book-filter"><input id="bar-search" type="search" placeholder="搜索酒名" aria-label="搜索酒名"><select id="bar-flavour" aria-label="筛选风味"><option value="">所有风味</option><option>Sweet</option><option>Sour</option><option>Bitter</option><option>Spicy</option><option>Bubbly</option></select></div><div class="bar-book-body"><div id="bar-recipe-list" aria-label="配方列表"></div><article id="bar-recipe-detail"></article></div></dialog>
+<dialog id="bar-settings-dialog" class="bar-modal bar-settings-modal" aria-labelledby="bar-settings-title"><header><h2 id="bar-settings-title">设置</h2><button data-close aria-label="关闭设置"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></header><label><input type="checkbox" id="bar-sound"> 调酒音效</label><label><input type="checkbox" id="bar-motion"> 动画效果</label><button id="bar-clear-data">清除已发现酒谱</button><p id="bar-data-status" role="status"></p></dialog>
+<script src="/bar/game.js" defer></script>
