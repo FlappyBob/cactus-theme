@@ -54,6 +54,10 @@
     <%- partial('./umami_analytics.ejs') %>
     <!-- styles -->
     <%- css('css/style') %>
+    <% if (page.layout === 'academic') { %>
+      <link rel="preload" href="/academic/fonts/zhuque-fangsong-name.woff2" as="font" type="font/woff2" crossorigin>
+      <link rel="stylesheet" href="/academic/stylesheet.css">
+    <% } %>
     <!-- persian styles -->
     <% if (theme.direction && theme.direction === 'rtl') { %>
       <%- css('css/rtl') %>
@@ -65,6 +69,7 @@
     <% if (theme.rss) { %>
       <link rel="alternate" href="<%= url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml" />
     <% } %>
+	<% if (page.layout !== 'academic') { %>
 	<!-- auto-translate based on browser language -->
 	<script type="text/javascript">
 	(function() {
@@ -89,8 +94,9 @@
 	}
 	</script>
 	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	<% } %>
 	<!-- mathjax -->
-	<% if (theme.mathjax.enabled) {%>
+	<% if (theme.mathjax.enabled && page.layout !== 'academic') {%>
 		<script type="text/x-mathjax-config">
 		  MathJax.Hub.Config({
 			tex2jax: {

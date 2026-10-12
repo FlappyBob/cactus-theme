@@ -31,8 +31,6 @@
   }
 %>
 
-<link rel="stylesheet" type="text/css" href="/academic/stylesheet.css">
-
 <section class="academic-page" aria-label="Academic homepage">
   <header class="academic-hero">
     <div class="academic-hero-copy">
@@ -46,9 +44,10 @@
 
     </div>
 
+    <div class="academic-visual-stack">
     <div class="academic-profile">
       <a class="academic-avatar-link" href="<%= ac.avatar %>" aria-label="<%= displayName %> portrait">
-        <img class="academic-avatar" src="<%= ac.avatar %>" alt="<%= displayName %>">
+        <img class="academic-avatar" src="<%= ac.avatar %>" alt="<%= displayName %>" width="196" height="196" decoding="async" fetchpriority="high">
       </a>
 
 <% if (socialLinks.length) { %>
@@ -88,6 +87,9 @@
 <% } %>
     </div>
 
+      <div class="academic-toys" aria-hidden="true"></div>
+    </div>
+
     <% if (bio.length) { %>
       <section class="academic-bio" aria-label="Biography">
         <% bio.forEach(function(para) { %>
@@ -109,7 +111,7 @@
           <article class="featured-paper<% if (!(featured.image || featured.image_hover)) { %> featured-paper-no-media<% } %>">
             <% if (featured.image || featured.image_hover) { %>
               <a class="featured-paper-media" href="<%= featured.url || '#' %>">
-                <img src="<%= featured.image_hover || featured.image %>" alt="<%= featured.title %> teaser">
+                <img src="<%= featured.image_hover || featured.image %>" alt="<%= featured.title %> teaser" loading="lazy" decoding="async" width="800" height="500">
               </a>
             <% } %>
             <div class="featured-paper-copy">
@@ -146,7 +148,7 @@
               <article class="paper-card">
                 <% if (paper.image || paper.image_hover) { %>
                   <a class="paper-media" href="<%= paper.url || '#' %>">
-                    <img src="<%= paper.image_hover || paper.image %>" alt="<%= paper.title %> teaser">
+                    <img src="<%= paper.image_hover || paper.image %>" alt="<%= paper.title %> teaser" loading="lazy" decoding="async" width="800" height="600">
                   </a>
                 <% } else { %>
                   <div class="paper-media paper-media-placeholder" aria-hidden="true"></div>
