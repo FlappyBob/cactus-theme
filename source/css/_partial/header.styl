@@ -30,6 +30,8 @@
     border-radius: 5px
     background-size: $logo-width $logo-height
     background-repeat: no-repeat
+    &[data-blink-src]
+      image-rendering: pixelated
     if $logo-grayout
       filter: none // grayscale(100%)
       -webkit-filter: none // grayscale(100%)

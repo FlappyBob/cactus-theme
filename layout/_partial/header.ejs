@@ -1,3 +1,4 @@
+<% var blinkBlogLogo = /^blog(?:\/|$)/.test(page.path || '') && theme.logo && theme.logo.url === '/images/logo.png'; %>
 <header id="header">
   <a class="u-url u-uid" href="<%- url_for(theme.nav.home || "/") %>">
   <% if (theme.logo && theme.logo.enabled) { %>
@@ -12,7 +13,7 @@
           src="https://www.gravatar.com/avatar/<%= theme.gravatar.hash %>" />
       <% } %>
     <% } else { %>
-      <img id="logo" alt class="u-logo" src="<%- url_for(theme.logo.url) %>" />
+      <img id="logo" alt class="u-logo" src="<%- url_for(theme.logo.url) %>" width="<%= theme.logo.width %>" height="<%= theme.logo.height %>"<% if (blinkBlogLogo) { %> data-blink-src="/academic/blog-blink/avatar-v2.gif"<% } %> />
     <% } %>
   <% } %>
     <div id="title">
@@ -63,3 +64,6 @@
   }
   </script>
 </header>
+<% if (blinkBlogLogo) { %>
+<script defer src="/academic/blog-blink.js?v=20261012-shared-blink"></script>
+<% } %>
