@@ -1,0 +1,26 @@
+<div class="va11-rain" aria-hidden="true"><canvas></canvas></div>
+<div class="va11-crt" aria-hidden="true"></div>
+<div class="va11-dock" id="va11-dock">
+  <div class="va11-panel" id="va11-panel" hidden>
+    <div class="va11-panel-head">
+      <span class="va11-panel-label">JUKEBOX</span>
+      <button type="button" class="va11-chip" data-va11-crt aria-pressed="true" title="CRT 扫描线">CRT</button>
+    </div>
+    <div class="va11-track">
+      <span class="va11-track-title" id="va11-track-title">Every Day Is Night</span>
+      <span class="va11-track-artist">Garoad</span>
+    </div>
+    <input class="va11-seek" id="va11-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="播放进度">
+    <div class="va11-controls">
+      <button type="button" id="va11-prev" aria-label="上一首"><i class="fa-solid fa-backward-step" aria-hidden="true"></i></button>
+      <button type="button" id="va11-play" class="va11-play" aria-label="播放"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
+      <button type="button" id="va11-next" aria-label="下一首"><i class="fa-solid fa-forward-step" aria-hidden="true"></i></button>
+    </div>
+    <a class="va11-credit" href="https://garoad.bandcamp.com/" target="_blank" rel="noopener">Music by Garoad · VA-11 Hall-A OST</a>
+  </div>
+  <button type="button" class="va11-dock-toggle" id="va11-dock-toggle" aria-expanded="false" aria-controls="va11-panel" title="点唱机">
+    <span class="va11-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="va11-dock-label">JUKEBOX</span>
+  </button>
+</div>
+<script defer src="<%- url_for('/js/va11.js') %>?v=20261118"></script>

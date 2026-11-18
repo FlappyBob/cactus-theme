@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html<%= config.language ? " lang=" + config.language.substring(0, 2) : ""%>>
 <%- partial('_partial/head') %>
-<body class="max-width mx-auto px3 <%- theme.direction -%> page-layout-<%= String(page.layout || 'default').replace(/[^a-z0-9_-]/gi, '-') %>">
+<% var va11Skin = ['academic', 'bar'].indexOf(page.layout) === -1; %>
+<body class="max-width mx-auto px3 <%- theme.direction -%> page-layout-<%= String(page.layout || 'default').replace(/[^a-z0-9_-]/gi, '-') %><%= va11Skin ? ' va11-skin' : '' %>">
     <div id="google_translate_element" style="display:none"></div>
     <% if (is_post()) { %>
       <%- partial('_partial/post/actions_desktop') %>
@@ -18,5 +19,8 @@
     </div>
     <%- partial('_partial/styles') %>
     <%- partial('_partial/scripts') %>
+    <% if (va11Skin) { %>
+      <%- partial('_partial/va11') %>
+    <% } %>
 </body>
 </html>

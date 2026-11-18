@@ -1,0 +1,487 @@
+/* VA-11 Hall-A fan skin for the blog pages (not the academic homepage or /bar/).
+   Palette and pixel fonts are shared with /bar/ so both read as one place. */
+
+@font-face {
+  font-family: "Fusion12";
+  src: url("/bar/fonts/fusion12.woff2") format("woff2");
+  font-display: swap;
+}
+
+.va11-skin {
+  --va-bg: #140e1c;
+  --va-panel: #201b2d;
+  --va-ink: #e3dcec;
+  --va-muted: #9d93b3;
+  --va-line: #3a3248;
+  --va-pink: #f94695;
+  --va-cyan: #3fe0d0;
+  --va-glow-pink: 0 0 6px rgba(249, 70, 149, .55), 0 0 18px rgba(249, 70, 149, .22);
+  --va-glow-cyan: 0 0 6px rgba(63, 224, 208, .5), 0 0 16px rgba(63, 224, 208, .2);
+  --va-pixel: "Fusion12", "PingFang SC", "Microsoft YaHei", monospace;
+}
+
+html:has(body.va11-skin) {
+  border-top-color: var(--va-pink);
+  background-color: #140e1c;
+}
+
+body.va11-skin {
+  background-color: var(--va-bg);
+  color: var(--va-ink);
+}
+
+.va11-skin .content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Pixel type: titles, nav, dates, categories ---------- */
+.va11-skin #header h1,
+.va11-skin #nav,
+.va11-skin .h1,
+.va11-skin .h2,
+.va11-skin article header .posttitle,
+.va11-skin article .content h2,
+.va11-skin article .content h3,
+.va11-skin article header .meta,
+.va11-skin article header .meta *,
+.va11-skin .post-list .meta,
+.va11-skin .post-list .meta *,
+.va11-skin #categories .project-item > a,
+.va11-skin .article-category,
+.va11-skin .article-tag,
+.va11-skin #archive .h2,
+.va11-skin #footer,
+.va11-skin #header-post #menu,
+.va11-skin .va11-dock {
+  font-family: var(--va-pixel);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  letter-spacing: .02em;
+}
+
+.va11-skin #header h1 {
+  color: var(--va-pink);
+  font-size: 36px;
+  font-weight: 400;
+  text-shadow: var(--va-glow-pink);
+}
+
+.va11-skin #header #nav a,
+.va11-skin #header-post #nav a {
+  color: var(--va-pink);
+  font-size: 18px;
+}
+
+.va11-skin #header #nav a:hover,
+.va11-skin #header-post #nav a:hover {
+  color: var(--va-cyan);
+  text-shadow: var(--va-glow-cyan);
+  background: none;
+}
+
+.va11-skin .h1,
+.va11-skin .h1 a {
+  color: var(--va-pink);
+  font-size: 24px;
+  font-weight: 400;
+  text-shadow: var(--va-glow-pink);
+}
+
+.va11-skin .h2 {
+  color: var(--va-cyan);
+  font-weight: 400;
+  text-shadow: var(--va-glow-cyan);
+}
+
+.va11-skin article header .posttitle {
+  color: var(--va-pink);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-shadow: var(--va-glow-pink);
+}
+
+.va11-skin article .content h2 {
+  color: var(--va-pink);
+  font-size: 24px;
+  font-weight: 400;
+  text-shadow: var(--va-glow-pink);
+}
+
+.va11-skin article .content h2:before {
+  color: var(--va-cyan);
+  text-shadow: var(--va-glow-cyan);
+}
+
+.va11-skin article .content h3 {
+  color: var(--va-cyan);
+  font-size: 18px;
+  font-weight: 400;
+  text-shadow: var(--va-glow-cyan);
+}
+
+.va11-skin article header .meta,
+.va11-skin article header .meta * {
+  color: var(--va-muted);
+  font-size: 12px;
+}
+
+.va11-skin .post-list .meta,
+.va11-skin .post-list .meta * {
+  color: var(--va-cyan);
+  font-size: 12px;
+}
+
+.va11-skin article header .meta a {
+  color: var(--va-cyan);
+}
+
+/* ---------- Body copy stays in the readable system font ---------- */
+.va11-skin a {
+  color: var(--va-ink);
+}
+
+.va11-skin a:hover {
+  color: var(--va-pink);
+}
+
+.va11-skin blockquote {
+  border-left-color: var(--va-pink);
+  color: var(--va-muted);
+}
+
+.va11-skin hr {
+  border-color: var(--va-line);
+}
+
+.va11-skin :not(pre) > code {
+  background: var(--va-panel);
+  color: var(--va-cyan);
+  border-radius: 3px;
+  padding: 0 .3em;
+}
+
+/* Code blocks: dark panel so the scanlines don't stripe a light box. */
+.va11-skin .highlight,
+.va11-skin .highlight table,
+.va11-skin .highlight pre,
+.va11-skin .highlight td {
+  background: #1d1729;
+  color: #e3dcec;
+}
+
+.va11-skin .highlight {
+  border: 1px solid var(--va-line);
+}
+
+.va11-skin .highlight .gutter pre {
+  color: #6c6382;
+}
+
+.va11-skin .highlight .code .comment,
+.va11-skin .highlight .code .quote { color: #8a80a0; font-style: italic; }
+.va11-skin .highlight .code .keyword,
+.va11-skin .highlight .code .selector-tag,
+.va11-skin .highlight .code .meta,
+.va11-skin .highlight .code .meta * { color: #f94695; font-weight: 400; }
+.va11-skin .highlight .code .string,
+.va11-skin .highlight .code .doctag,
+.va11-skin .highlight .code .regexp { color: #3fe0d0; }
+.va11-skin .highlight .code .number,
+.va11-skin .highlight .code .literal,
+.va11-skin .highlight .code .variable,
+.va11-skin .highlight .code .template-variable { color: #ffb86c; }
+.va11-skin .highlight .code .type,
+.va11-skin .highlight .code .built_in,
+.va11-skin .highlight .code .class,
+.va11-skin .highlight .code .title,
+.va11-skin .highlight .code .section { color: #b893ff; font-weight: 400; }
+.va11-skin .highlight .code .params { color: #e3dcec; }
+
+/* Wide display equations scroll sideways instead of widening the page on phones. */
+.va11-skin .MJXc-display,
+.va11-skin mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+/* The theme's page-change veil is light; keep it dark here. */
+.va11-skin .page-transition-veiling {
+  background: rgba(20, 14, 28, .72);
+}
+
+.va11-skin .post-list .post-item a:hover,
+.va11-skin #categories a:hover {
+  color: var(--va-pink);
+  text-shadow: var(--va-glow-pink);
+}
+
+/* ---------- Footer: fan-site credit ---------- */
+.va11-skin #footer {
+  color: var(--va-muted);
+  font-size: 12px;
+}
+
+.va11-skin #footer a {
+  color: var(--va-pink);
+}
+
+.va11-fan-credit {
+  flex-basis: 100%;
+  margin-top: .75rem;
+  color: var(--va-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ---------- Header rain (above the fold only) ---------- */
+.va11-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+}
+
+.va11-rain canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .va11-rain { display: none; }
+}
+
+/* ---------- CRT scanlines (on by default, faint) ---------- */
+.va11-crt {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(to bottom, rgba(0, 0, 0, .16) 0, rgba(0, 0, 0, .16) 1px, transparent 1px, transparent 3px),
+    radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, .28) 100%);
+}
+
+.va11-crt-off .va11-crt {
+  display: none;
+}
+
+/* ---------- Header CRT switch ---------- */
+.va11-skin #nav .va11-crt-switch {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--va-muted);
+  font: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.va11-skin #nav .va11-crt-switch[aria-pressed="true"] {
+  color: var(--va-cyan);
+  text-shadow: var(--va-glow-cyan);
+}
+
+/* ---------- Jukebox dock ---------- */
+.va11-dock {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483001;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  color: var(--va-ink);
+  font-size: 12px;
+}
+
+.va11-dock button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.va11-dock-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--va-pink);
+  border-radius: 4px;
+  background: rgba(20, 14, 28, .92);
+  color: var(--va-pink);
+  box-shadow: 0 0 10px rgba(249, 70, 149, .3);
+  text-shadow: var(--va-glow-pink);
+  letter-spacing: .12em;
+}
+
+.va11-dock-toggle:hover,
+.va11-dock-toggle:focus-visible {
+  border-color: var(--va-cyan);
+  color: var(--va-cyan);
+  text-shadow: var(--va-glow-cyan);
+  outline: none;
+}
+
+.va11-eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  width: 12px;
+  height: 12px;
+}
+
+.va11-eq i {
+  display: block;
+  width: 3px;
+  height: 4px;
+  background: currentColor;
+}
+
+.va11-eq i:nth-child(2) { height: 8px; }
+.va11-eq i:nth-child(3) { height: 6px; }
+
+.va11-dock.is-playing .va11-eq i {
+  animation: va11-eq .9s steps(4) infinite alternate;
+}
+
+.va11-dock.is-playing .va11-eq i:nth-child(2) { animation-delay: -.3s; }
+.va11-dock.is-playing .va11-eq i:nth-child(3) { animation-delay: -.6s; }
+
+@keyframes va11-eq {
+  from { height: 2px; }
+  to { height: 12px; }
+}
+
+.va11-dock.is-waiting .va11-dock-toggle {
+  animation: va11-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes va11-pulse {
+  50% { box-shadow: 0 0 18px rgba(249, 70, 149, .75); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .va11-dock.is-playing .va11-eq i,
+  .va11-dock.is-waiting .va11-dock-toggle { animation: none; }
+}
+
+.va11-panel {
+  width: 240px;
+  padding: 12px;
+  border: 1px solid var(--va-line);
+  border-radius: 4px;
+  background: rgba(32, 27, 45, .97);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .45), 0 0 0 1px rgba(249, 70, 149, .15);
+}
+
+.va11-panel[hidden] { display: none; }
+
+.va11-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.va11-panel-label {
+  color: var(--va-pink);
+  letter-spacing: .16em;
+  text-shadow: var(--va-glow-pink);
+}
+
+.va11-chip {
+  padding: 2px 8px;
+  border: 1px solid var(--va-line);
+  border-radius: 3px;
+  background: none;
+  color: var(--va-muted);
+}
+
+.va11-chip[aria-pressed="true"] {
+  border-color: var(--va-cyan);
+  color: var(--va-cyan);
+  text-shadow: var(--va-glow-cyan);
+}
+
+.va11-track {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.va11-track-title {
+  overflow: hidden;
+  color: var(--va-ink);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.va11-track-artist {
+  color: var(--va-muted);
+}
+
+.va11-seek {
+  width: 100%;
+  margin: 4px 0 10px;
+  accent-color: var(--va-pink);
+}
+
+.va11-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.va11-controls button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--va-line);
+  border-radius: 50%;
+  background: none;
+  color: var(--va-ink);
+}
+
+.va11-controls button:hover,
+.va11-controls button:focus-visible {
+  border-color: var(--va-cyan);
+  color: var(--va-cyan);
+  outline: none;
+}
+
+.va11-controls .va11-play {
+  border-color: var(--va-pink);
+  color: var(--va-pink);
+}
+
+.va11-skin .va11-dock .va11-credit {
+  display: block;
+  color: var(--va-muted);
+  text-align: center;
+  background: none;
+}
+
+.va11-skin .va11-dock .va11-credit:hover {
+  color: var(--va-pink);
+}
+
+/* Post pages on phones have a fixed action bar at the bottom. */
+@media (max-width: 500px) {
+  .va11-dock { right: 12px; bottom: 12px; }
+  .page-layout-post .va11-dock { bottom: 64px; }
+  .va11-skin #header h1 { font-size: 36px; line-height: 1.3; white-space: nowrap; }
+  .va11-skin #header #nav a,
+  .va11-skin #nav .va11-crt-switch { font-size: 12px; }
+}

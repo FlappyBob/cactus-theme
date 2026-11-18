@@ -58,6 +58,10 @@
       <link rel="preload" href="/academic/fonts/zhuque-fangsong-name.woff2" as="font" type="font/woff2" crossorigin>
       <link rel="stylesheet" href="/academic/stylesheet.css">
     <% } %>
+    <% if (['academic', 'bar'].indexOf(page.layout) === -1) { %>
+      <link rel="stylesheet" href="<%- url_for('/css/va11.css') %>?v=20261118">
+      <script>try{if(localStorage.getItem('va11-crt')==='off')document.documentElement.classList.add('va11-crt-off')}catch(e){}</script>
+    <% } %>
     <!-- persian styles -->
     <% if (theme.direction && theme.direction === 'rtl') { %>
       <%- css('css/rtl') %>

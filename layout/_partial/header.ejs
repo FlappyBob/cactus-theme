@@ -28,7 +28,8 @@
       <% for (var i in theme.nav) { %><!--
      --><li><a href="<%- url_for(theme.nav[i]) %>"><%= __('nav.'+i).replace("nav.", "") %></a></li><!--
    --><% } %>
-      <li><a href="<%- url_for('/bar/') %>" class="bar-nav-entry"><i class="fa-solid fa-martini-glass" aria-hidden="true"></i> 酒吧(装修中)</a></li>
+      <li><a href="<%- url_for('/bar/') %>" class="bar-nav-entry"><i class="fa-solid fa-martini-glass" aria-hidden="true"></i> 酒吧(装修中)</a></li><!--
+   --><li><button type="button" class="va11-crt-switch" data-va11-crt aria-pressed="true" title="CRT 扫描线开关">CRT</button></li>
     </ul>
   </div>
   <button class="lang-toggle notranslate" id="lang-toggle" onclick="toggleLanguage()" title="Switch language">
